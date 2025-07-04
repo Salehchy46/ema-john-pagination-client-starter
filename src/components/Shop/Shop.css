@@ -25,3 +25,11 @@
     justify-content: space-between;
     align-items: center;
 }
+
+.pagination {
+    text-align: center;
+    font-weight: 600;
+    margin: 15px 15px;
+    color: #FF9900;
+    position: sticky;
+}

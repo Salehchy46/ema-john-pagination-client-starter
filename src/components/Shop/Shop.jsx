@@ -10,7 +10,26 @@ const Shop = () => {
     const [cart, setCart] = useState([]);
     const { count } = useLoaderData();
 
+    const itemsPerPage = 10;
+
+    const numberOfPages = Math.ceil(count / itemsPerPage);
+
     console.log(count);
+
+    //fokira system
+    // const pages = [];
+    // for(let i = 0; i < numberOfPages; i++) {
+    //     pages.push(i)
+    // }
+    // console.log(pages);
+
+    //easyway
+    const pages = [...Array(numberOfPages).keys()];
+
+    /***
+     * Done 1: Get the total number of Products
+     * TODO 2: Numbers of items per page dynamic
+     */
 
     useEffect(() => {
         fetch('http://localhost:5000/products')
@@ -84,6 +103,11 @@ const Shop = () => {
                         <button className='btn-proceed'>Review Order</button>
                     </Link>
                 </Cart>
+            </div>
+            <div className='pagination'>
+                {
+                    pages.map(page => <button key={page}>{page}</button>)
+                }
             </div>
         </div>
     );
