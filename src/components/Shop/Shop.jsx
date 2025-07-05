@@ -8,7 +8,8 @@ import { Link, useLoaderData } from 'react-router-dom';
 const Shop = () => {
     const [products, setProducts] = useState([]);
     const [cart, setCart] = useState([]);
-    const [itemsPerPage, setItemsPerPage] = useState(10)
+    const [itemsPerPage, setItemsPerPage] = useState(10);
+    const [currentPage, setCurrentPage] = useState(0);
     const { count } = useLoaderData();
 
     // const itemsPerPage = 10;
@@ -28,8 +29,9 @@ const Shop = () => {
     const pages = [...Array(numberOfPages).keys()];
 
     /***
-     * Done 1: Get the total number of Products
-     * TODO 2: Numbers of items per page dynamic
+     * DONE 1: Get the total number of Products
+     * DONE 2: Numbers of items per page dynamic
+     * TODO 3: Get the current Page.
      */
 
     useEffect(() => {
@@ -88,6 +90,19 @@ const Shop = () => {
         console.log(e.target.value);
         const val = parseInt(e.target.value);
         setItemsPerPage(val);
+        setCurrentPage(0);
+    }
+
+    const handlePreviousPage = () => {
+        if(currentPage > 0) {
+            setCurrentPage(currentPage - 1)
+        }
+    }
+
+    const handleNextPage = () => {
+        if(currentPage < pages.length - 1) {
+            setCurrentPage(currentPage + 1)
+        }
     }
 
     return (
@@ -112,9 +127,16 @@ const Shop = () => {
                 </Cart>
             </div>
             <div className='pagination'>
+                <p>Current Page {currentPage}</p>
+                <button onClick={handlePreviousPage}>Previous</button>
                 {
-                    pages.map(page => <button key={page}>{page}</button>)
+                    pages.map(page => <button 
+                        className={currentPage === page && 'selected'}
+                        key={page}
+                        onClick={() => setCurrentPage(page)}
+                        >{page}</button>)
                 }
+                <button onClick={handleNextPage}>Next</button>
                 <select onChange={handleItemsPerPage} value={itemsPerPage} name="" id="">
                     <option value="5">5</option>
                     <option value="10">10</option>
