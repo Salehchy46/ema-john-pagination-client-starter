@@ -33,3 +33,7 @@
     color: #FF9900;
     position: sticky;
 }
+
+.pagination button {
+    margin-right: 10px;
+}
